@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void PrintVector (vector<float> v, string message);
+void PrintVector (auto const v, string message);
 
 int main ()
 {
@@ -24,7 +24,7 @@ int main ()
     return 0;
 }
 
-void PrintVector (vector<float> v, string message)
+void PrintVector (auto const v, string message)
 {
     cout << message << ": ";
     for (unsigned int index = 0; index < v.size(); index++)
