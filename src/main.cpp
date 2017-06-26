@@ -13,7 +13,7 @@ int main ()
     MuInit();
 
     Rhythm rhythm(4, 4, 60);
-    rhythm.GenerateBaseRhythm(2);
+    rhythm.GenerateBaseRhythm(4);
     PrintVector(rhythm.rhythm_times, "rhythm_times");
 
     Melody melody;

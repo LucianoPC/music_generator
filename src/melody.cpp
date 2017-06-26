@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "MuUtil.h"
 #include "melody.hpp"
 
@@ -13,12 +14,43 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
 {
     this->base_melody.clear();
     this->base_melody.push_back(0);
+
+    int max_limit =   6;
+    int up_limit =    1 * max_limit;
+    int down_limit = -1 * max_limit;
+
+    int notes_to_jump = 0;
+
     for (unsigned int index = 1; index < rhythm_times.size() - 1; index++)
     {
         short last_note = this->base_melody[index - 1];
-        short note_number = Between(last_note + 3, last_note - 3);
+        short note_number = Between(last_note + up_limit,
+                                    last_note + down_limit);
         this->base_melody.push_back(note_number);
+
+        short interval = note_number - last_note;
+        if (abs(interval) >= 3)
+        {
+            up_limit = interval > 0 ? -1 : 1;
+            down_limit = up_limit;
+            notes_to_jump = 4;
+        }
+        else
+        {
+            notes_to_jump -= 1;
+            if (notes_to_jump <= 0)
+            {
+                up_limit =    1 * max_limit;
+                down_limit = -1 * max_limit;
+            }
+            else
+            {
+                up_limit =    1;
+                down_limit = -1;
+            }
+        }
     }
+
     this->base_melody.push_back(0);
 
 
@@ -32,7 +64,11 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
         int pitch_index = (note_number + 70) % 7;
 
         short pitch = Melody::PITCHS[pitch_index];
-        pitch += (note_number / 7) * 12;
+
+        if(note_number >= 0)
+            pitch += (note_number / 7) * 12;
+        else
+            pitch += ((note_number / 7) - 1) * 12;
 
         note.SetPitch(pitch);
         note.SetDur(rhythm_times[index]);
