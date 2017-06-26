@@ -12,7 +12,15 @@ Rhythm::Rhythm (unsigned short time_unit, unsigned short compass_unit,
 void
 Rhythm::GenerateBaseRhythm (unsigned short number_of_bars)
 {
+    this->base_rhythm.clear();
 
+    for (unsigned short bar_index = 0; bar_index < number_of_bars; bar_index++)
+    {
+        for (unsigned short index = 0; index < this->time_unit; index++)
+        {
+            this->base_rhythm.push_back(1.0f);
+        }
+    }
 }
 
 float

@@ -1,6 +1,7 @@
 #ifndef _RHYTHM_H_
 #define _RHYTHM_H_
 
+#include <vector>
 #include "MuMaterial.h"
 
 class Rhythm
@@ -12,7 +13,7 @@ public:
     void GenerateBaseRhythm (unsigned short number_of_bars);
     float GetRandomNoteTime ();
 
-    MuMaterial base_material;
+    vector<float> base_rhythm;
 
     unsigned short bpm;
     unsigned short time_unit;
