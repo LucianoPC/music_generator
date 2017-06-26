@@ -8,16 +8,13 @@ using namespace std;
 class Rhythm
 {
 public:
-    Rhythm (unsigned short time_unit, unsigned short compass_unit,
-            unsigned short bpm);
+    Rhythm (float time);
 
-    void GenerateBaseRhythm (unsigned short number_of_bars);
+    void GenerateBaseRhythm ();
 
     vector<float> rhythm_times;
 
-    unsigned short bpm;
-    unsigned short time_unit;
-    unsigned short compass_unit;
+    float time;
 };
 
 #endif
