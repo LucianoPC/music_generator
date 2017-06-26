@@ -17,8 +17,13 @@ int main ()
     PrintVector(rhythm.base_rhythm, "base_rhythm");
 
     Melody melody;
-    melody.GenerateBaseMelody(rhythm.base_rhythm.size());
+    melody.GenerateBaseMelody(rhythm.base_rhythm);
     PrintVector(melody.base_melody, "base_melody");
+
+    melody.material.SetDefaultFunctionTables();
+    melody.material.Score("./output/score");
+    melody.material.Orchestra("./output/orchestra");
+    melody.material.Show();
 
     cout << endl << "Ok!" << endl;
     return 0;

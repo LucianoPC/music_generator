@@ -9,30 +9,33 @@ Melody::Melody ()
 }
 
 void
-Melody::GenerateBaseMelody (unsigned short number_of_notes)
+Melody::GenerateBaseMelody (vector<float> rhythm_times)
 {
     this->base_melody.clear();
-
     this->base_melody.push_back(0);
-
-    for (int index = 1; index < number_of_notes - 1; index++)
+    for (unsigned int index = 1; index < rhythm_times.size() - 1; index++)
     {
         short last_note = this->base_melody[index - 1];
-        short note = Between(last_note + 3, last_note - 3);
-        this->base_melody.push_back(note);
+        short note_number = Between(last_note + 3, last_note - 3);
+        this->base_melody.push_back(note_number);
     }
-
     this->base_melody.push_back(0);
 
 
-    for (int index = 0; index < number_of_notes; index++)
+    MuNote note;
+    note.SetInstr(1);
+    note.SetAmp(1.0f);
+    this->material = MuMaterial();
+    for (unsigned int index = 0; index < this->base_melody.size(); index++)
     {
-        short note = this->base_melody[index];
-        int pitch_index = (note + 70) % 7;
+        short note_number = this->base_melody[index];
+        int pitch_index = (note_number + 70) % 7;
 
         short pitch = Melody::PITCHS[pitch_index];
-        pitch += (note / 7) * 12;
+        pitch += (note_number / 7) * 12;
 
-        this->base_melody[index] = pitch;
+        note.SetPitch(pitch);
+        note.SetDur(rhythm_times[index]);
+        this->material += note;
     }
 }
