@@ -12,9 +12,8 @@ public:
             unsigned short bpm);
 
     void GenerateBaseRhythm (unsigned short number_of_bars);
-    float GetRandomNoteTime ();
 
-    vector<float> base_rhythm;
+    vector<float> rhythm_times;
 
     unsigned short bpm;
     unsigned short time_unit;

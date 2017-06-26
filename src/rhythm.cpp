@@ -12,33 +12,32 @@ Rhythm::Rhythm (unsigned short time_unit, unsigned short compass_unit,
 void
 Rhythm::GenerateBaseRhythm (unsigned short number_of_bars)
 {
-    this->base_rhythm.clear();
+    this->rhythm_times.clear();
 
     for (unsigned short bar_index = 0; bar_index < number_of_bars; bar_index++)
     {
-        for (unsigned short index = 0; index < this->time_unit; index++)
+        float bar_time = this->time_unit;
+        while(bar_time > 0)
         {
-            this->base_rhythm.push_back(1.0f);
+            vector<float> possible_times;
+            for (float time = 0.25f; time <= 2.0f; time += 0.25)
+            {
+                if (time > bar_time) continue;
+                int add_chance = 1;
+                if ((int)(time * 100) % 50 == 0) add_chance = 3;
+                if ((int)(time * 100) % 100 == 0) add_chance = 5;
+
+                for (int index = 0; index < add_chance; index++)
+                {
+                    possible_times.push_back(time);
+                }
+
+                int time_index = Between(0, possible_times.size() - 1);
+                float selected_time = possible_times[time_index];
+                this->rhythm_times.push_back(selected_time);
+
+                bar_time -= selected_time;
+            }
         }
     }
-}
-
-float
-Rhythm::GetRandomNoteTime ()
-{
-    float note_times[] =      { 0.5f, 0.75f, 1.0f, 1.5f, 2.0f };
-    int note_times_chance[] = {   10,    20,   40,   20,   10 };
-
-    int chance = 0;
-    int random_chance = Between(1, 100);
-    for (int index = 0; index < 5; index++)
-    {
-        chance += note_times_chance[index];
-        if (chance >= random_chance)
-        {
-            return note_times[index];
-        }
-    }
-
-    return 1.0f;
 }

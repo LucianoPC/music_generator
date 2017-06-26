@@ -14,10 +14,10 @@ int main ()
 
     Rhythm rhythm(4, 4, 60);
     rhythm.GenerateBaseRhythm(2);
-    PrintVector(rhythm.base_rhythm, "base_rhythm");
+    PrintVector(rhythm.rhythm_times, "rhythm_times");
 
     Melody melody;
-    melody.GenerateBaseMelody(rhythm.base_rhythm);
+    melody.GenerateBaseMelody(rhythm.rhythm_times);
     PrintVector(melody.base_melody, "base_melody");
 
     melody.material.SetDefaultFunctionTables();
