@@ -20,8 +20,8 @@ Rhythm::GenerateBaseRhythm ()
             if (time > rhythm_time) continue;
 
             int add_chance = 1;
-            if ((int)(time * 100) % 50 == 0) add_chance = 3;
-            if ((int)(time * 100) % 100 == 0) add_chance = 5;
+            if ((int)(time * 100) % 50 == 0) add_chance = 2;
+            if ((int)(time * 100) % 100 == 0) add_chance = 3;
 
             for (int index = 0; index < add_chance; index++)
                 possible_times.push_back(time);

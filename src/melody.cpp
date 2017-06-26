@@ -15,7 +15,7 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
     this->base_melody.clear();
     this->base_melody.push_back(0);
 
-    int max_limit = 6;
+    int max_limit = 4;
     int up_limit = 1 * max_limit;
     int down_limit = -1 * max_limit;
 
@@ -23,13 +23,13 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
 
     for (unsigned int index = 1; index < rhythm_times.size() - 1; index++)
     {
-        short last_note = this->base_melody[index - 1];
-        short note_number = Between(last_note + up_limit,
-                                    last_note + down_limit);
+        short last_note_number = this->base_melody[index - 1];
+        short note_number = Between(last_note_number + up_limit,
+                                    last_note_number + down_limit);
         this->base_melody.push_back(note_number);
 
-        short interval = note_number - last_note;
-        if (abs(interval) >= 3)
+        short interval = note_number - last_note_number;
+        if (abs(interval) >= 2)
         {
             up_limit = interval > 0 ? -1 : 1;
             down_limit = up_limit;
@@ -45,10 +45,28 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
                 up_limit   *= max_limit;
                 down_limit *= max_limit;
             }
+
+            up_limit = note_number - min(10, note_number + up_limit);
+            down_limit = note_number - max(-10, note_number + down_limit);
         }
     }
 
-    this->base_melody.push_back(0);
+    short last_note_number = this->base_melody[this->base_melody.size() - 1];
+    int closer_note_number = 0;
+    int closer_distance = abs(last_note_number);
+
+    for (int index = -7; index <= 7; index += 7)
+    {
+        int distance = abs(last_note_number - index);
+
+        if (distance < closer_distance)
+        {
+            closer_distance = distance;
+            closer_note_number = index;
+        }
+    }
+
+    this->base_melody.push_back(closer_note_number);
 
 
     MuNote note;
