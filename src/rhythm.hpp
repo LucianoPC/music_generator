@@ -2,7 +2,8 @@
 #define _RHYTHM_H_
 
 #include <vector>
-#include "MuMaterial.h"
+
+using namespace std;
 
 class Rhythm
 {
