@@ -8,13 +8,14 @@ using namespace std;
 class Rhythm
 {
 public:
-    Rhythm (float time);
+    Rhythm (int n_compass, float compass_time);
 
     void GenerateBaseRhythm ();
 
     vector<float> rhythm_times;
 
-    float time;
+    int n_compass;
+    float compass_time;
 };
 
 #endif

@@ -12,7 +12,10 @@ int main ()
 {
     MuInit();
 
-    Rhythm rhythm(10);
+    int n_compass = 5;
+    float compass_time = 2.0f;
+
+    Rhythm rhythm(n_compass, compass_time);
     rhythm.GenerateBaseRhythm();
     PrintVector(rhythm.rhythm_times, "rhythm_times");
 
