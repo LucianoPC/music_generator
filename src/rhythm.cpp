@@ -21,7 +21,7 @@ Rhythm::GenerateBaseRhythm ()
     for (int compass_i = 0; compass_i < this->n_compass; compass_i++)
     {
         float rhythm_time = compass_time;
-        if (compass_i == this->n_compass - 1) rhythm_time -= 1.0f;
+        if (compass_i == this->n_compass - 1) rhythm_time -= 2.0f;
 
         int rhythm_size = this->rhythms.size() - 1;
 
@@ -47,7 +47,7 @@ Rhythm::GenerateBaseRhythm ()
             }
         }
     }
-    this->rhythm_times.push_back(1.0f);
+    this->rhythm_times.push_back(2.0f);
 }
 
 void

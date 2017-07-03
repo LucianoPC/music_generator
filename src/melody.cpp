@@ -15,7 +15,7 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
     this->base_melody.clear();
     this->base_melody.push_back(0);
 
-    int max_limit = 4;
+    int max_limit = 2;
     int up_limit = 1 * max_limit;
     int down_limit = -1 * max_limit;
 
@@ -46,8 +46,8 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
                 down_limit *= max_limit;
             }
 
-            up_limit = note_number - min(10, note_number + up_limit);
-            down_limit = note_number - max(-10, note_number + down_limit);
+            up_limit = note_number - min(7, note_number + up_limit);
+            down_limit = note_number - max(-7, note_number + down_limit);
         }
     }
 
