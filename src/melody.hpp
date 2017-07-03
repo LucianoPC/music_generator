@@ -9,7 +9,7 @@ using namespace std;
 class Melody
 {
 public:
-    static const short PITCHS[7];
+    static const short PITCHS[];
 
     Melody ();
 

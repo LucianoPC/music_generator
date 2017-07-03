@@ -16,6 +16,11 @@ public:
 
     int n_compass;
     float compass_time;
+
+private:
+    vector< vector<float> > rhythms;
+
+    void initializeRythms ();
 };
 
 #endif
