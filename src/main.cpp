@@ -57,11 +57,11 @@ int main ()
     tmp = melodies_middle[index].material;
     int times = Between(1, 5);
     tmp.CycleRhythm(times);
-    material += chord.GenerateChordMaterial(tmp, n_compass / 2);
+    material += chord.GenerateChordMaterial(tmp, n_compass);
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_middle[index].material;
-    tmp.Scale(1.25f);
+    tmp.Scale(0.5f);
     material += tmp;
 
     index = Between(0, n_melodies - 1);
@@ -69,24 +69,24 @@ int main ()
     tmp.Retro();
     degree = Between(2, 5);
     tmp.DiatonicTranspose(0, MAJOR_MODE, degree, ASCENDING);
-    material += chord.GenerateChordMaterial(tmp, n_compass / 2);
+    material += chord.GenerateChordMaterial(tmp, n_compass);
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_middle[index].material;
-    material += chord.GenerateChordMaterial(tmp, n_compass / 2);
+    material += chord.GenerateChordMaterial(tmp, n_compass);
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_middle[index].material;
     degree = Between(2, 5);
     tmp.DiatonicTranspose(0, MAJOR_MODE, degree, ASCENDING);
     tmp.Retro();
-    tmp = chord.GenerateChordMaterial(tmp, n_compass / 2);
+    tmp = chord.GenerateChordMaterial(tmp, n_compass);
     tmp.Scale(0.75f);
     material += tmp;
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_begin[index].material;
-    tmp = chord.GenerateChordMaterial(tmp, n_compass);
+    tmp = chord.GenerateChordMaterial(tmp, n_compass * 2);
     tmp.Scale(0.75f);
     material += tmp;
 

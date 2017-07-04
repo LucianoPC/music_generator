@@ -46,12 +46,12 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
                 down_limit *= max_limit;
             }
 
-            if(note_number + up_limit > 8)
+            if(note_number + up_limit > 5)
             {
                 up_limit = -1;
             }
 
-            if(note_number + down_limit < -8)
+            if(note_number + down_limit < -5)
             {
                 down_limit = 1;
             }
