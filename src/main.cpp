@@ -12,21 +12,82 @@ int main ()
 {
     MuInit();
 
-    int n_compass = 5;
+    int n_compass = 4;
     float compass_time = 2.0f;
+
+    int n_melodies = 10;
 
     Rhythm rhythm(n_compass, compass_time);
     rhythm.GenerateBaseRhythm();
-    PrintVector(rhythm.rhythm_times, "rhythm_times");
+    vector<Melody> melodies_begin;
+    for(int i = 0; i < n_melodies; i++)
+    {
+        Melody melody;
+        melody.GenerateBaseMelody(rhythm.rhythm_times);
 
-    Melody melody;
-    melody.GenerateBaseMelody(rhythm.rhythm_times);
-    PrintVector(melody.base_melody, "base_melody");
+        melodies_begin.push_back(melody);
+    }
 
-    melody.material.SetDefaultFunctionTables();
-    melody.material.Score("./output/score");
-    melody.material.Orchestra("./output/orchestra");
-    melody.material.Show();
+    rhythm = Rhythm(n_compass / 2, compass_time * 2.0f);
+    rhythm.GenerateBaseRhythm();
+    vector<Melody> melodies_middle;
+    for(int i = 0; i < n_melodies; i++)
+    {
+        Melody melody;
+        melody.GenerateBaseMelody(rhythm.rhythm_times);
+
+        melodies_middle.push_back(melody);
+    }
+
+    MuMaterial material, tmp;
+
+    int index = Between(0, n_melodies - 1);
+    tmp = melodies_begin[index].material;
+    material += tmp;
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_begin[index].material;
+    int degree = Between(2, 5);
+    tmp.DiatonicTranspose(0, MAJOR_MODE, degree, ASCENDING);
+    material += tmp;
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_middle[index].material;
+    int times = Between(1, 5);
+    tmp.CycleRhythm(times);
+    material += tmp;
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_middle[index].material;
+    tmp.Scale(1.25f);
+    material += tmp;
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_middle[index].material;
+    tmp.Retro();
+    material += tmp;
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_middle[index].material;
+    degree = Between(2, 5);
+    tmp.DiatonicTranspose(0, MAJOR_MODE, degree, ASCENDING);
+    tmp.Retro();
+    tmp.Scale(0.75f);
+    material += tmp;
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_begin[index].material;
+    tmp.Scale(0.75f);
+    material += tmp;
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_begin[index].material;
+    material += tmp;
+
+    material.SetDefaultFunctionTables();
+    material.Score("./output/score");
+    material.Orchestra("./output/orchestra");
+    material.Show();
 
     cout << endl << "Ok!" << endl;
     return 0;

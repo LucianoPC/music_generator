@@ -47,7 +47,7 @@ Rhythm::GenerateBaseRhythm ()
             }
         }
     }
-    this->rhythm_times.push_back(2.0f);
+    this->rhythm_times.push_back(1.0f);
 }
 
 void
