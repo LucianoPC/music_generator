@@ -46,9 +46,18 @@ Melody::GenerateBaseMelody (vector<float> rhythm_times)
                 down_limit *= max_limit;
             }
 
-            up_limit = note_number - min(7, note_number + up_limit);
-            down_limit = note_number - max(-7, note_number + down_limit);
+            if(note_number + up_limit > 8)
+            {
+                up_limit = -1;
+            }
+
+            if(note_number + down_limit < -8)
+            {
+                down_limit = 1;
+            }
         }
+
+        cout << "note number: " << note_number << endl;
     }
 
     short last_note_number = this->base_melody[this->base_melody.size() - 1];

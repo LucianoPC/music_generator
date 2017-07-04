@@ -3,6 +3,7 @@
 #include "MuMaterial.h"
 #include "rhythm.hpp"
 #include "melody.hpp"
+#include "chord.hpp"
 
 using namespace std;
 
@@ -39,23 +40,24 @@ int main ()
         melodies_middle.push_back(melody);
     }
 
+    Chord chord;
     MuMaterial material, tmp;
 
     int index = Between(0, n_melodies - 1);
     tmp = melodies_begin[index].material;
-    material += tmp;
+    material += chord.GenerateChordMaterial(tmp, n_compass);
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_begin[index].material;
     int degree = Between(2, 5);
     tmp.DiatonicTranspose(0, MAJOR_MODE, degree, ASCENDING);
-    material += tmp;
+    material += chord.GenerateChordMaterial(tmp, n_compass);
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_middle[index].material;
     int times = Between(1, 5);
     tmp.CycleRhythm(times);
-    material += tmp;
+    material += chord.GenerateChordMaterial(tmp, n_compass / 2);
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_middle[index].material;
@@ -65,24 +67,33 @@ int main ()
     index = Between(0, n_melodies - 1);
     tmp = melodies_middle[index].material;
     tmp.Retro();
-    material += tmp;
+    degree = Between(2, 5);
+    tmp.DiatonicTranspose(0, MAJOR_MODE, degree, ASCENDING);
+    material += chord.GenerateChordMaterial(tmp, n_compass / 2);
+
+    index = Between(0, n_melodies - 1);
+    tmp = melodies_middle[index].material;
+    material += chord.GenerateChordMaterial(tmp, n_compass / 2);
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_middle[index].material;
     degree = Between(2, 5);
     tmp.DiatonicTranspose(0, MAJOR_MODE, degree, ASCENDING);
     tmp.Retro();
+    tmp = chord.GenerateChordMaterial(tmp, n_compass / 2);
     tmp.Scale(0.75f);
     material += tmp;
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_begin[index].material;
+    tmp = chord.GenerateChordMaterial(tmp, n_compass);
     tmp.Scale(0.75f);
     material += tmp;
 
     index = Between(0, n_melodies - 1);
     tmp = melodies_begin[index].material;
-    material += tmp;
+    material += chord.GenerateChordMaterial(tmp, n_compass);
+
 
     material.SetDefaultFunctionTables();
     material.Score("./output/score");
